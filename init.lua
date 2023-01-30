@@ -136,12 +136,16 @@ vim.cmd [[colorscheme catppuccin]]
 vim.o.syntax = "on"
 vim.o.ttyfast = true
 vim.o.wrap = true
-vim.o.tabstop = 4 
+vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 vim.o.autoindent = true
 vim.o.expandtab = true
 vim.o.cursorline = true
+vim.o.ttyfast = true
+vim.o.syntax = "on"
+vim.o.splitright = true
+vim.o.splitbelow = true
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menu,menuone,noselect'
@@ -443,7 +447,9 @@ local servers = {
   },
   emmet_ls = {},
   eslint = {
-    root_dir = require("lspconfig").util.root_pattern(""),
+    init_options = {
+        root_dir = require("lspconfig").util.root_pattern(""),
+    },
   },
 }
 
@@ -453,6 +459,7 @@ require('neodev').setup()
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Setup mason so it can manage external tooling
 require('mason').setup()
@@ -479,8 +486,8 @@ require('fidget').setup()
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
+require('luasnip.loaders.from_vscode').lazy_load();
 local luasnip = require 'luasnip'
-
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -517,6 +524,8 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'path' },
+    { name = 'buffer' },
   },
 }
 
