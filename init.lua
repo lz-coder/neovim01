@@ -445,7 +445,9 @@ local servers = {
 	},
 	single_file_support = true
   },
-  emmet_ls = {},
+  emmet_ls = {
+    filetypes = { 'html', 'css', 'typescriptreact', 'javascriptreact', 'sass', 'scss', 'less', 'ejs'},
+    },
   eslint = {
     init_options = {
         root_dir = require("lspconfig").util.root_pattern(""),
