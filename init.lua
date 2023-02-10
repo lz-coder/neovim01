@@ -69,7 +69,7 @@ require('packer').startup(function(use)
   use 'nvim-tree/nvim-tree.lua'
   use 'akinsho/toggleterm.nvim' -- We can toggle nvim term
   use 'brenoprata10/nvim-highlight-colors' -- color highlight
-
+  use 'nikvdp/ejs-syntax' -- ejs syntax
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
