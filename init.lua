@@ -15,6 +15,9 @@ require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
 
+  -- Code Runner
+  use { 'CRAG666/code_runner.nvim', requires = 'nvim-lua/plenary.nvim' }
+
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     requires = {
@@ -58,7 +61,6 @@ require('packer').startup(function(use)
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
 
-  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   use { "catppuccin/nvim", as = "catppuccin" }  -- catppuccin theme
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
@@ -211,6 +213,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+-- Configure code Runner
+require('code_runner').setup({
+  mode = "toggleterm",
+  filetype = {
+    javascript = "node",
+    python = "python3 -u",
+  },
+})
+
 -- Set lualine as statusline
 -- See `:help lualine.txt`
 require('lualine').setup {
@@ -227,6 +238,9 @@ require('Comment').setup()
 
 -- Enable nvim-autopairs
 require('nvim-autopairs').setup()
+
+-- Enable nvim-ts-autotag
+require('nvim-ts-autotag').setup()
 
 -- Enable nvim-tree
 require('nvim-tree').setup()
@@ -292,7 +306,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = {'lua', 'typescript', 'javascript', 'tsx', 'json', 'html', 'css', 'help', 'vim' },
+  ensure_installed = {'typescript', 'javascript', 'tsx', 'json', 'html', 'css', 'help', 'vim' },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python', 'html' } },
@@ -424,19 +438,19 @@ local servers = {
   -- rust_analyzer = {},
   -- tsserver = {},
 
-  sumneko_lua = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
+  --sumneko_lua = {
+  --  Lua = {
+  --    workspace = { checkThirdParty = false },
+  --    telemetry = { enable = false },
+  --  },
+  -- },
   tsserver = {},
   bashls = {},
   jsonls = {},
   cssls = {},
   html = {
     init_options = {
-	  configurationSection = { "html", "css", "javascript" },
+	  configurationSection = { "html", "css", "javascript", "ejs" },
 	  embeddedLanguages = {
 	    css = true,	
         javascript = true
@@ -446,13 +460,9 @@ local servers = {
 	single_file_support = true
   },
   emmet_ls = {
-    filetypes = { 'html', 'css', 'typescriptreact', 'javascriptreact', 'sass', 'scss', 'less', 'ejs'},
+    filetypes = { 'html', 'css', 'typescriptreact', 'javascriptreact', 'sass', 'scss', 'less', 'ejs', 'javascript', 'typescript'},
     },
-  eslint = {
-    init_options = {
-        root_dir = require("lspconfig").util.root_pattern(""),
-    },
-  },
+  eslint = {},
 }
 
 -- Setup neovim lua configuration
