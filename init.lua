@@ -138,9 +138,9 @@ vim.cmd [[colorscheme catppuccin]]
 vim.o.syntax = "on"
 vim.o.ttyfast = true
 vim.o.wrap = true
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.shiftwidth = 4
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
 vim.o.autoindent = true
 vim.o.expandtab = true
 vim.o.cursorline = true
@@ -250,12 +250,7 @@ require('nvim-highlight-colors').setup ()
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
-require('indent_blankline').setup {
-  char = '┊',
-  show_trailing_blankline_indent = false,
-  show_first_indent_level = false,
-  use_treesitter = true,
-}
+require('ibl').setup()
 
 -- Gitsigns
 -- See `:help gitsigns.txt`
