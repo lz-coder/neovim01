@@ -136,7 +136,6 @@ vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.o.t_Co=256
 vim.cmd [[colorscheme moonfly]]
 
 vim.o.syntax = "on"
