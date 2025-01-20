@@ -61,8 +61,11 @@ require('packer').startup(function(use)
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
 
+  -- Themes
   use { "catppuccin/nvim", as = "catppuccin" }  -- catppuccin theme
   use { 'bluz71/vim-moonfly-colors', as = "moonfly" } -- moonfly theme
+  use "EdenEast/nightfox.nvim"
+
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
@@ -120,6 +123,14 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
+--
+-- Prettier format on save
+vim.cmd([[
+  augroup FormatOnSave
+    autocmd!
+    autocmd BufWritePre *.js,*.ts,*.jsx,*.tsx,*.json,*.css,*.scss,*.html PrettierAsync
+  augroup END
+]])
 
 -- Set highlight on search
 vim.o.hlsearch = false
@@ -139,7 +150,7 @@ vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme moonfly]]
+vim.cmd [[colorscheme carbonfox]]
 
 vim.o.syntax = "on"
 vim.o.ttyfast = true
@@ -208,6 +219,7 @@ vim.keymap.set('n', '<leader>f', ':NvimTreeRefresh<CR>') -- refresh
 vim.keymap.set('n', '<leader>n', ':NvimTreeFindFile<CR>') -- search file
 
 
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -233,7 +245,7 @@ require('code_runner').setup({
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'moonfly',
+    theme = 'carbonfox',
     component_separators = '|',
     section_separators = '',
   },
